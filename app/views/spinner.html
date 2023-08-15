@@ -1,0 +1,39 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Checking your details" %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-thirds">
+     <div class="loading">
+      <h1 aria-live="polite" class="govuk-heading-l govuk-!-margin-bottom-6 govuk-!-margin-top-3">Checking your details…</h1>
+
+      <div class="loading-animation loading-animation__fast govuk-!-margin-bottom-6"></div>
+
+      <p class="govuk govuk-!-margin-bottom-9">This can take up to 30 seconds. Please do not refresh the page.</p>
+     </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+
+    const messageUpdateTime = 7500; // 7.5 seconds
+    const messages = ['Still waiting for a response…','Still working…', 'Still checking your details…', 'Still waiting for a response…'];
+    console.log(messages.length);
+    let currentMessage = 0;
+    const visiblePageTitle = document.querySelector('h1');
+    const changeMessage = () => {
+        currentMessage++;
+        if(currentMessage<messages.length){
+        visiblePageTitle.innerHTML =`<span class="govuk-visually-hidden">Page update:</span>${ messages[currentMessage]}`;
+        }
+    }
+    const updateUser = setInterval(changeMessage, messageUpdateTime);
+
+
+</script>
+
+{% endblock %}

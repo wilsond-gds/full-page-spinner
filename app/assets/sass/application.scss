@@ -4,3 +4,48 @@
 // 
 
 // Add extra styles here
+$standard-animation-time: 2.5s;
+$fast-animation-time: 1.25s;
+$animation-style: cubic-bezier(0.46, 0.16, 0.58, 0.87);
+
+.loading {
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+
+  .loading-animation {
+    border: 10px solid $govuk-border-colour;
+    border-radius: 50%;
+    border-top-color: $govuk-brand-colour;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    animation: spin $standard-animation-time $animation-style infinite;
+
+    &__fast {
+      animation: spin $fast-animation-time $animation-style infinite;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion) {
+    .loading-animation {
+      animation: none;
+      border: 10px solid $govuk-border-colour;
+      &__fast {
+        animation: none;
+      }
+    }
+  }
+
+}
