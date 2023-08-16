@@ -5,16 +5,39 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+            Full page indeterminate waiting prototypes
+        </h1>
 
-    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
+        <p>These are intial explorations informed by:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>
+                <a href="https://github.com/alphagov/govuk-design-system-backlog/issues/28">Loading spinner discussion</a>
+            </li>
+            <li><a href="https://github.com/alphagov/govuk-design-system-backlog/issues/164">Indeterminate progress indicator discussion</a>
+            </li>
+            <li>
+                <a href="https://github.com/alphagov/govuk-design-system-backlog/issues/28#issuecomment-1324848795">Meta refresh is to be avoided for accessibility reasons</a>
+            </li>
+            <li>
+                <a href="https://github.com/alphagov/govuk-design-system-backlog/issues/28#issuecomment-465341005">Our users would benefit from a spinner having a minimum runtime</a>
+            </li>
+        </ul>
 
-    <h1 class="govuk-heading-xl">
-      {{ serviceName }}
-    </h1>
 
-    {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}
-  </div>
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-top-9">
+            <li>
+                <p><a href="spinner.html">Meta refresh version</a></p>
+                <p>This version updates the page content to reassure users the system is working. However, using a meta
+                    refresh removes control from the user, so is not ideal for accessibility.</p>
+            </li>
+            <li>
+                <p><a href="spinner-control.html">User controlled version</a></p>
+                <p>This version updates the page content to show a continue button, and also sketches out a error state
+                    if the operation doesn’t complete.</p>
+            </li>
+        </ul>
+    </div>
 </div>
-
 {% endblock %}

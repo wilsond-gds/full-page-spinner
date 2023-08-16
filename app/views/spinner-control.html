@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Checking your details" %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-thirds">
+        <div class="loading">
+            <h1 id="user-message"
+                class="govuk-heading-l govuk-!-margin-bottom-6 govuk-!-margin-top-3">Checking your details…</h1>
+
+            <div class="loading-animation loading-animation__fast govuk-!-margin-bottom-6"></div>
+
+            <p aria-live="polite" id="user-interaction" class="govuk govuk-!-margin-bottom-9">This can take up to 30
+                seconds. Please do not refresh the page.</p>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    const minimumWaitTime = 1500;
+
+    const modifyPageContentSuccess = () => {
+        const pageHeading = document.getElementById('user-message');
+        const removeAnimation = document.querySelector('.loading-animation');
+        const pageMessage = document.getElementById('user-interaction');
+
+        pageHeading.textContent = "Your information has been retrieved";
+        removeAnimation.remove();
+
+        pageMessage.innerHTML = `<span class="govuk-visually-hidden">Page update - your information has been retrieved. Please </span><button class="govuk-button" data-module="govuk-button">Continue</button>`;
+        //document.querySelector('button').focus();
+    }
+
+    const modifyPageContentFailure = () => {
+        const pageHeading = document.getElementById('user-message');
+        const removeAnimation = document.querySelector('.loading-animation');
+        const pageMessage = document.getElementById('user-interaction');
+
+        pageHeading.textContent = "Your information was not found";
+        removeAnimation.remove();
+
+        pageMessage.innerHTML = `<span class="govuk-visually-hidden">Page update - your information was not found. Please </span><button class="govuk-button" data-module="govuk-button">Return to the service</button>`;
+
+        //document.querySelector('button').focus();
+
+        
+    }
+
+
+    const checkForUpdate = () => {
+        clearInterval(window.minimumWait);
+        console.log('begin polling for a response');
+        // this code creates a random length of time to wait
+        const isFinished = () => {
+            const hasReturned = Math.random();
+            if (hasReturned < 0.07) {
+                clearInterval(window.pollForResponse);
+                const hasWorked = Math.random();
+                if (hasWorked > 0.2) {
+                    // update the page to show success
+                    modifyPageContentSuccess();
+                } else {
+                    // tell the user the operation has failed
+                    modifyPageContentFailure();
+                }
+
+            } else {
+                return;
+            }
+        }
+        window.pollForResponse = setInterval(isFinished, 500);
+    }
+
+    window.minimumWait = setInterval(checkForUpdate, minimumWaitTime);
+
+
+</script>
+
+{% endblock %}
